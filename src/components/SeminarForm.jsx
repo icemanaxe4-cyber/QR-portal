@@ -227,7 +227,7 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
       {/* ── Programme Hierarchy ── */}
       <FormSection
         title="Programme Structure"
-        subtitle="Pillars → Modules → Subtopics → Topics (hierarchical breakdown)"
+        subtitle="Pillars → Modules → Topics → Subtopics (hierarchical breakdown)"
       >
         <div className="space-y-4">
           {form.pillars.map((pillar, pi) => (
@@ -286,10 +286,10 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
                           <div key={si} className="border border-slate-100 rounded-xl overflow-hidden">
                             {/* Subtopic row */}
                             <div className="flex items-center gap-2 px-3 py-2 bg-emerald-50 border-b border-emerald-100">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-500 w-20 shrink-0">Subtopic {si + 1}</span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-500 w-20 shrink-0">Topic {si + 1}</span>
                               <input
                                 className="flex-1 bg-transparent text-emerald-900 placeholder-emerald-300 text-sm outline-none font-medium"
-                                placeholder="Subtopic name"
+                                placeholder="Topic name"
                                 value={sub.name}
                                 onChange={e => updateSubtopic(pi, mi, si, 'name', e.target.value)}
                               />
@@ -308,7 +308,7 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
                                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                                   <input
                                     className="flex-1 text-sm text-slate-700 bg-transparent outline-none border-b border-dashed border-slate-200 pb-0.5 focus:border-amber-400 transition-colors placeholder-slate-300"
-                                    placeholder="Topic name"
+                                    placeholder="Subtopic name"
                                     value={topic.name}
                                     onChange={e => updateLeafTopic(pi, mi, si, ti, e.target.value)}
                                   />
@@ -325,7 +325,7 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
                                 onClick={() => addLeafTopic(pi, mi, si)}
                                 className="flex items-center gap-1 ml-6 text-xs text-amber-600 hover:text-amber-700 font-semibold mt-1 transition-colors"
                               >
-                                <Plus size={11} /> Add Topic
+                                <Plus size={11} /> Add Subtopic
                               </button>
                             </div>
                           </div>
@@ -335,7 +335,7 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
                           onClick={() => addSubtopic(pi, mi)}
                           className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 font-semibold transition-colors"
                         >
-                          <Plus size={12} /> Add Subtopic
+                          <Plus size={12} /> Add Topic
                         </button>
                       </div>
                     </div>
