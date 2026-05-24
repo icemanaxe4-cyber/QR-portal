@@ -227,7 +227,7 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
       {/* ── Programme Hierarchy ── */}
       <FormSection
         title="Programme Structure"
-        subtitle="Pillars → Modules → Topics → Subtopics (hierarchical breakdown)"
+        subtitle="Pillars → Modules → Topics → Details (hierarchical breakdown)"
       >
         <div className="space-y-4">
           {form.pillars.map((pillar, pi) => (
@@ -308,7 +308,7 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
                                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                                   <input
                                     className="flex-1 text-sm text-slate-700 bg-transparent outline-none border-b border-dashed border-slate-200 pb-0.5 focus:border-amber-400 transition-colors placeholder-slate-300"
-                                    placeholder="Subtopic name"
+                                    placeholder="Detail name"
                                     value={topic.name}
                                     onChange={e => updateLeafTopic(pi, mi, si, ti, e.target.value)}
                                   />
@@ -325,7 +325,7 @@ export default function SeminarForm({ initialData, onSubmit, submitting }) {
                                 onClick={() => addLeafTopic(pi, mi, si)}
                                 className="flex items-center gap-1 ml-6 text-xs text-amber-600 hover:text-amber-700 font-semibold mt-1 transition-colors"
                               >
-                                <Plus size={11} /> Add Subtopic
+                                <Plus size={11} /> Add Detail
                               </button>
                             </div>
                           </div>

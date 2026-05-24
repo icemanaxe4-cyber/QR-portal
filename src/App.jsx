@@ -2,9 +2,16 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute, ApprovedRoute } from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
+
+// Redirects logged-in users to /dashboard; renders nothing for guests
+function RootRedirect() {
+  const { currentUser } = useAuth();
+  if (currentUser) return <Navigate to="/dashboard" replace />;
+  return null; // viewers / guests: stay on whatever page they came from
+}
 
 // Pages
 import Login        from './pages/Login';
@@ -80,7 +87,7 @@ export default function App() {
           <Route path="/seminar/:slug" element={<PublicLayout><SeminarLanding /></PublicLayout>} />
 
           {/* Protected app routes */}
-          <Route path="/" element={<WithNav><Navigate to="/dashboard" replace /></WithNav>} />
+          <Route path="/" element={<RootRedirect />} />
 
           <Route path="/dashboard" element={
             <WithNav>
@@ -112,8 +119,8 @@ export default function App() {
             </WithNav>
           } />
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          {/* Fallback: redirect logged-in users to dashboard, ignore guests */}
+          <Route path="*" element={<RootRedirect />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

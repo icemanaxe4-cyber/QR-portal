@@ -105,14 +105,10 @@ export default function SeminarLanding() {
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center 38%', zIndex: 0 }} />
 
-        {/* Overlays */}
+        {/* Overlay — subtle flat tint for text legibility, no heavy gradient */}
         <div className="absolute inset-0" style={{
           zIndex: 1,
-          background: 'linear-gradient(180deg,rgba(0,10,40,0.40) 0%,rgba(0,10,40,0.75) 50%,rgba(5,15,50,0.97) 100%)'
-        }} />
-        <div className="absolute inset-0" style={{
-          zIndex: 2,
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,5,30,0.5) 100%)'
+          background: 'rgba(5, 15, 45, 0.52)'
         }} />
 
         {/* Content */}
@@ -206,41 +202,29 @@ export default function SeminarLanding() {
       {/* ══════════════════════════════════════════════════════════════════
           STATS RIBBON — Topics covered & Hours
       ══════════════════════════════════════════════════════════════════ */}
-      <div style={{ background: '#0a1628', borderBottom: '1px solid rgba(59,130,246,0.12)' }}>
+      <div style={{ background: '#ffffff', borderBottom: '1px solid #e2e8f0' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
           <div className="grid grid-cols-4">
             {[
-              { value: validPillars.length, label: 'Pillars', color: '#818cf8' },
-              { value: totalTopics, label: 'Topics Covered', color: '#34d399' },
-              { value: hoursLabel, label: 'Hours', color: '#60a5fa' },
-              { value: videoLinks.length, label: 'Videos', color: '#f87171' },
+              { value: validPillars.length, label: 'Pillars', color: '#6366f1' },
+              { value: validPillars.reduce((acc, p) => acc + ((p.modules || []).filter(m => m.name).length), 0), label: 'Modules', color: '#f59e0b' },
+              { value: totalTopics, label: 'Topics Covered', color: '#10b981' },
+              { value: hoursLabel, label: 'Hours', color: '#3b82f6' },
             ].map(({ value, label, color }, i) => (
               <div key={i} className="flex flex-col items-center justify-center py-4 sm:py-5"
-                style={{ borderRight: i < 3 ? '1px solid rgba(59,130,246,0.1)' : 'none' }}>
+                style={{ borderRight: i < 3 ? '1px solid #e2e8f0' : 'none' }}>
                 <span className="text-xl sm:text-2xl lg:text-3xl font-black tabular-nums" style={{ color }}>
                   {value || '0'}
                 </span>
                 <span className="text-[9px] sm:text-xs font-bold uppercase tracking-widest mt-1 text-center"
-                  style={{ color: 'rgba(148,163,184,0.5)' }}>{label}</span>
+                  style={{ color: '#94a3b8' }}>{label}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          WAVE TRANSITION — dark navy stats → light body
-      ══════════════════════════════════════════════════════════════════ */}
-      <div style={{ background: '#0a1628', marginBottom: '-2px' }}>
-        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg"
-          style={{ display: 'block', width: '100%', height: 'clamp(40px, 6vw, 80px)' }}
-          preserveAspectRatio="none">
-          <path
-            d="M0,0 C360,80 1080,0 1440,60 L1440,80 L0,80 Z"
-            fill="#f0f5fb"
-          />
-        </svg>
-      </div>
+      {/* No transition needed — stats ribbon and body are both light */}
 
       {/* ══════════════════════════════════════════════════════════════════
           BODY — light content area
@@ -518,10 +502,10 @@ function CurriculumTable({ pillars }) {
 
   // ── Step 2: render ───────────────────────────────────────────────────────
   const COLS = [
-    { label: 'Pillar', color: '#1e40af', bg: '#eff6ff', border: '#bfdbfe', w: '22%' },
-    { label: 'Module', color: '#0369a1', bg: '#f0f9ff', border: '#bae6fd', w: '24%' },
-    { label: 'Topic', color: '#0f766e', bg: '#f0fdfa', border: '#99f6e4', w: '27%' },
-    { label: 'Subtopic', color: '#475569', bg: 'transparent', border: 'transparent', w: '27%' },
+    { label: 'Pillar', color: '#1e40af', bg: '#eff6ff', border: '#bfdbfe', w: '18%' },
+    { label: 'Module', color: '#0369a1', bg: '#f0f9ff', border: '#bae6fd', w: '20%' },
+    { label: 'Topic', color: '#0f766e', bg: '#f0fdfa', border: '#99f6e4', w: '22%' },
+    { label: 'Details', color: '#334155', bg: 'transparent', border: 'transparent', w: '40%' },
   ];
 
   return (
@@ -593,8 +577,11 @@ function CurriculumTable({ pillars }) {
                 )}
 
                 {/* Subtopic — always one cell per row */}
-                <td className="px-4 py-3 text-slate-600 text-[11px] sm:text-xs">
-                  {row.subtopic || <span className="text-slate-300 italic">—</span>}
+                <td className="px-4 py-3 text-slate-700 text-xs sm:text-sm leading-relaxed" style={{ maxWidth: '0', width: '40%' }}>
+                  {row.subtopic
+                    ? <span style={{ display: 'block', wordBreak: 'break-word', whiteSpace: 'normal' }}>{row.subtopic}</span>
+                    : <span className="text-slate-300 italic">—</span>
+                  }
                 </td>
               </tr>
             ))}
